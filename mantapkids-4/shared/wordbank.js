@@ -25,7 +25,15 @@ const WordBank = {
         "UBAT", "ULAR", "AWAM", "BARANG", "BURUNG",
         "CERMIN", "KAMBING", "KERUSI", "LEMBU", "MATAHARI",
         "SEKOLAH", "TULIS", "PENSEL", "BUKUTULIS", "PINTU",
-        "KERTAS", "MEJA", "TELEFON"
+        "KERTAS", "MEJA", "TELEFON",
+         "AYAM", "ITIK", "LEBAH", "LALAT", "KATAK",
+        "ULAR", "IKAN", "KUDA", "RUSA", "SINGA",
+        "KERA", "TUPAI", "BURUNG", "GAJAH", "PANDA",
+        "LEMBU", "KAMBING", "KERBAU", "BADAK", "ZIRAFAH",
+        "HARIMAU", "SERIGALA", "MUSANG", "LANDAK", "BERUANG",
+        "MONYET", "KANGGARU", "TAPIR", "PENYU", "KETAM",
+        "UDANG", "SOTONG", "JERUNG", "ARNAB", "HELANG",
+        "MERAK", "GAGAK", "PENGUIN", "KOALA", "GORILA"
     ]
 
     // Future: add more categorized lists here, e.g.
