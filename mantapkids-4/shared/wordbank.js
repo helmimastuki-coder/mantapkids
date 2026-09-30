@@ -11,7 +11,7 @@ const WordBank = {
         "KUDA", "KUTU", "LARI", "LUPA", "MATA",
         "NASI", "PAGI", "PASU", "PITA", "RAJA",
         "ROTI", "SATU", "SUSU", "TALI", "TOPI",
-        "AYAM", "AVOK", "BAJU", "BULAN", "CATAT",
+        "AYAM", "KAKI", "BAJU", "BULAN", "CATAT",
         "CICAK", "DAUN", "EKOR", "GAJAH", "ITIK",
         "JALAN", "KASUT", "KATAK", "KERA", "KUCING",
         "LALAT", "LEBAH", "MASAK", "NAMA", "PANDA",
