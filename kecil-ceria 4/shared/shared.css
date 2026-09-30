@@ -1,0 +1,47 @@
+/* ===== Kecil Ceria - Shared Styles ===== */
+/* Used by every page: dashboard, score page, and all game pages */
+
+body {
+    font-family: 'Sniglet', cursive, sans-serif;
+    background: linear-gradient(135deg, #F3F8EC 0%, #E6F4FF 100%);
+    min-height: 100vh;
+}
+
+/* Short Stack for headers, buttons, titles */
+h1, h2, h3, h4, h5, h6, .font-display, button, span:not(.sniglet-text) {
+    font-family: 'Short Stack', cursive, sans-serif;
+}
+
+/* Bouncy game card hover effect (dashboard) */
+.game-card {
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.game-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 15px 30px -5px rgba(59, 130, 246, 0.25);
+}
+
+/* Bouncing mascot animation */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+}
+.mascot-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Glossy diagonal stripe effect for chunky buttons */
+.glossy-btn {
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.25) 75%, transparent 75%, transparent);
+    background-size: 30px 30px;
+}
+
+/* Wrong-answer shake (games) */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+}
+.animate-shake {
+    animation: shake 0.4s ease-in-out;
+}
