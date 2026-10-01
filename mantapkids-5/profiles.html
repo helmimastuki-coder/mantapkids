@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Anak - MantapKids</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Short+Stack&family=Sniglet:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="shared/shared.css">
+</head>
+<body class="text-slate-800 antialiased selection:bg-yellow-300 selection:text-yellow-900">
+
+    <div class="max-w-md md:max-w-2xl mx-auto px-4 py-6 md:py-10">
+
+        <header class="flex flex-col items-center mb-8">
+            <div class="w-28 h-28 md:w-36 md:h-36 mb-4 mascot-float flex items-center justify-center bg-yellow-100 rounded-full shadow-lg border-4 border-yellow-300 text-5xl">
+                👨‍👩‍👧‍👦
+            </div>
+            <h1 class="text-2xl md:text-3xl font-bold text-slate-800 text-center">Profil Anak</h1>
+            <p class="text-slate-500 text-sm text-center mt-1">Setiap anak boleh ada profil sendiri (maksimum 3)</p>
+        </header>
+
+        <main>
+            <div id="profile-list" class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                <!-- Profile cards injected here -->
+            </div>
+
+            <div id="add-profile-card" class="bg-white rounded-2xl p-5 shadow-sm border-2 border-dashed border-sky-300 text-center">
+                <p class="text-sm font-bold text-slate-500 mb-3">Pilih avatar untuk profil baru:</p>
+                <div id="avatar-picker" class="flex justify-center gap-2 mb-4 flex-wrap">
+                    <!-- Avatar options injected here -->
+                </div>
+                <div class="flex gap-2 max-w-sm mx-auto">
+                    <input id="new-profile-name" type="text" placeholder="Nama anak" maxlength="20"
+                        class="flex-1 border-2 border-slate-300 rounded-xl px-4 py-2.5 text-sm font-bold focus:outline-none focus:border-sky-400">
+                    <button onclick="addProfile()" class="glossy-btn bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-2.5 rounded-xl font-bold shadow-[0_4px_0_#047857] active:shadow-[0_1px_0_#047857] active:translate-y-1 transition">
+                        Tambah
+                    </button>
+                </div>
+            </div>
+
+            <div id="max-reached-notice" class="hidden bg-amber-50 border-2 border-amber-200 rounded-2xl p-5 text-center">
+                <p class="text-amber-800 font-bold text-sm">Had maksimum 3 profil telah dicapai. Padam satu profil untuk tambah yang baru.</p>
+            </div>
+        </main>
+
+        <div class="text-center mt-8">
+            <a id="dashboard-link" href="dashboard.html" class="inline-flex items-center gap-2 bg-slate-200 hover:bg-slate-300 text-slate-700 px-6 py-3 rounded-2xl font-bold transition">
+                <i class="fa-solid fa-arrow-left"></i> Kembali ke Menu Utama
+            </a>
+        </div>
+
+        <footer class="text-center mt-12 text-sm text-slate-400 font-bold">
+            <p>© 2026 MantapKids. Dibina khas untuk anak-anak cerdik!</p>
+        </footer>
+    </div>
+
+    <script src="shared/storage.js"></script>
+    <script src="shared/effects.js"></script>
+
+    <script>
+        const AVATAR_OPTIONS = ["😊", "🦁", "🐰", "🐼", "🦄", "🐸", "🐶", "🐱"];
+        let selectedAvatar = AVATAR_OPTIONS[0];
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderAvatarPicker();
+            renderProfiles();
+        });
+
+        function renderAvatarPicker() {
+            const picker = document.getElementById('avatar-picker');
+            picker.innerHTML = AVATAR_OPTIONS.map(a => `
+                <button onclick="selectAvatar('${a}')" data-avatar="${a}"
+                    class="avatar-option w-11 h-11 rounded-full flex items-center justify-center text-xl border-2 transition
+                        ${a === selectedAvatar ? 'border-sky-500 bg-sky-100' : 'border-slate-200 bg-white hover:border-sky-300'}">
+                    ${a}
+                </button>
+            `).join('');
+        }
+
+        function selectAvatar(avatar) {
+            selectedAvatar = avatar;
+            renderAvatarPicker();
+        }
+
+        function renderProfiles() {
+            const profiles = Profiles.list();
+            const activeId = Profiles.getActiveId();
+            const listEl = document.getElementById('profile-list');
+            const addCard = document.getElementById('add-profile-card');
+            const maxNotice = document.getElementById('max-reached-notice');
+
+            listEl.innerHTML = profiles.map(p => `
+                <div class="bg-white rounded-2xl p-4 shadow-sm border-2 ${p.id === activeId ? 'border-sky-400' : 'border-slate-200'} text-center relative">
+                    ${p.id === activeId ? '<span class="absolute -top-2 -right-2 bg-sky-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">AKTIF</span>' : ''}
+                    <div class="w-16 h-16 mx-auto rounded-full bg-amber-100 flex items-center justify-center text-3xl mb-2 shadow-inner">${p.avatar}</div>
+                    <p class="font-bold text-slate-800 mb-3">${p.name}</p>
+                    <div class="flex flex-col gap-1.5">
+                        <button onclick="selectProfile('${p.id}')" class="bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold py-2 rounded-lg transition">
+                            ${p.id === activeId ? 'Sedang Main' : 'Pilih Profil'}
+                        </button>
+                        <div class="flex gap-1.5">
+                            <button onclick="renameProfile('${p.id}')" class="flex-1 bg-amber-100 hover:bg-amber-200 text-amber-800 text-xs font-bold py-1.5 rounded-lg transition">
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
+                            <button onclick="deleteProfile('${p.id}')" class="flex-1 bg-red-100 hover:bg-red-200 text-red-700 text-xs font-bold py-1.5 rounded-lg transition">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            const canAdd = Profiles.canAddMore();
+            addCard.classList.toggle('hidden', !canAdd);
+            maxNotice.classList.toggle('hidden', canAdd);
+        }
+
+        function addProfile() {
+            const input = document.getElementById('new-profile-name');
+            const name = input.value.trim();
+            if (!name) {
+                Effects.info('Sila masukkan nama anak dahulu');
+                return;
+            }
+            const profile = Profiles.create(name, selectedAvatar);
+            if (!profile) {
+                Effects.info('Had maksimum 3 profil telah dicapai');
+                return;
+            }
+            input.value = '';
+            selectedAvatar = AVATAR_OPTIONS[0];
+            Effects.toast(`✅ Profil "${name}" berjaya dicipta!`, 'success');
+            renderProfiles();
+        }
+
+        function selectProfile(id) {
+            Profiles.setActive(id);
+            window.location.href = 'dashboard.html';
+        }
+
+        function renameProfile(id) {
+            const profiles = Profiles.list();
+            const current = profiles.find(p => p.id === id);
+            const newName = prompt("Masukkan nama baru:", current.name);
+            if (newName && newName.trim() !== "") {
+                Profiles.rename(id, newName.trim());
+                renderProfiles();
+            }
+        }
+
+        function deleteProfile(id) {
+            const profiles = Profiles.list();
+            const current = profiles.find(p => p.id === id);
+            if (confirm(`Padam profil "${current.name}"? Semua markah akan hilang.`)) {
+                Profiles.delete(id);
+                renderProfiles();
+            }
+        }
+    </script>
+</body>
+</html>

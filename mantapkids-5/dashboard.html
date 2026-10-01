@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MantapKids - Portal Permainan Pembelajaran</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Short Stack for titles & Sniglet for body text -->
+    <link href="https://fonts.googleapis.com/css2?family=Short+Stack&family=Sniglet:wght@400&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Shared site styles -->
+    <link rel="stylesheet" href="shared/shared.css">
+</head>
+<body class="text-slate-800 antialiased selection:bg-yellow-300 selection:text-yellow-900">
+
+    <div class="max-w-md md:max-w-3xl lg:max-w-5xl mx-auto px-4 py-6 md:py-10">
+
+        <header class="flex flex-col items-center mb-8">
+            <!-- Mascot Image -->
+            <div class="w-36 h-36 md:w-44 md:h-44 mb-4 mascot-float flex items-center justify-center bg-yellow-100 rounded-full shadow-lg border-4 border-yellow-300 overflow-hidden">
+                <img src="https://placehold.co/200x200/FDE68A/B45309?text=Hero" alt="Maskot Kanak-kanak" onerror="this.src='https://placehold.co/200x200/94A3B8/FFFFFF?text=Hero'" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Player Info Card with border -->
+            <div class="w-full bg-white rounded-2xl p-4 md:p-6 shadow-md border-2 border-slate-300 flex items-center gap-4">
+                <div id="profile-avatar" class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-yellow-200 flex items-center justify-center text-2xl md:text-3xl shadow-inner text-amber-600 font-bold">
+                    😊
+                </div>
+                <div>
+                    <p class="text-xs md:text-sm text-slate-400 font-bold uppercase tracking-wider">Hello</p>
+                    <h1 class="text-xl md:text-2xl font-bold text-slate-800" id="player-name">Player One</h1>
+                </div>
+                <a href="score.html" class="bg-sky-100 hover:bg-sky-200 text-sky-800 px-3.5 py-2 rounded-xl text-xs md:text-sm font-bold transition flex items-center gap-1.5 shadow-sm">
+                    <i class="fa-solid fa-star"></i> Skor
+                </a>
+                <a href="profiles.html" class="bg-amber-100 hover:bg-amber-200 text-amber-800 px-3.5 py-2 rounded-xl text-xs md:text-sm font-bold transition flex items-center gap-1.5 shadow-sm">
+                    <i class="fa-solid fa-user-group"></i>
+                </a>
+            </div>
+        </header>
+
+        <main>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 pt-4">
+
+                <!-- Game 1 -->
+                <div onclick="launchGame('isi-tempat-kosong')" class="game-card relative cursor-pointer bg-sky-100 hover:bg-sky-200 rounded-2xl p-5 shadow-sm flex flex-col justify-between border-2 border-sky-300">
+                    <span class="absolute -top-3 -right-3 bg-gradient-to-r from-red-500 to-pink-500 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-lg tracking-wider uppercase border-white z-10">
+                        🔥 HOT
+                    </span>
+                    <div>
+                        <div class="flex justify-between items-start mb-2 pr-2">
+                            <h4 class="font-bold text-lg md:text-xl text-slate-900">Isi Tempat Kosong Ya Kids</h4>
+                        </div>
+                        <p class="text-sm md:text-base text-slate-600 mb-4">Isikan Tempat Kosong dengan huruf yang betul</p>
+                        <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-sky-600 shadow-sm">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game 2 -->
+                <div onclick="launchGame('match-huruf')" class="game-card relative cursor-pointer bg-sky-100 hover:bg-sky-200 rounded-2xl p-5 shadow-sm flex flex-col justify-between border-2 border-sky-300">
+                    <span class="absolute -top-3 -right-3 bg-gradient-to-r from-emerald-500 to-teal-400 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-lg tracking-wider uppercase border-white z-10">
+                        ✨ BARU
+                    </span>
+                    <div>
+                        <div class="flex justify-between items-start mb-2 pr-2">
+                            <h3 class="font-bold text-lg md:text-xl text-slate-900">Padan Huruf Besar & Kecil</h3>
+                        </div>
+                        <p class="text-sm md:text-base text-slate-600 mb-4">Cari pasangan huruf besar dan huruf kecil yang serupa</p>
+                        <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-sky-600 shadow-sm">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game 3 -->
+                <div onclick="launchGame('susun-suku-kata')" class="game-card relative cursor-pointer bg-sky-100 hover:bg-sky-200 rounded-2xl p-5 shadow-sm flex flex-col justify-between border-2 border-sky-300">
+                    <span class="absolute -top-3 -right-3 bg-gradient-to-r from-emerald-500 to-teal-400 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-lg tracking-wider uppercase border-white z-10">
+                        ✨ BARU
+                    </span>
+                    <div>
+                        <div class="flex justify-between items-start mb-2 pr-2">
+                            <h3 class="font-bold text-lg md:text-xl text-slate-900">Susun Suku Kata</h3>
+                        </div>
+                        <p class="text-sm md:text-base text-slate-600 mb-4">Susun huruf yang bercelaru menjadi perkataan yang betul</p>
+                        <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center absolute bottom-4 right-4 text-sky-600 shadow-sm">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game 4 -->
+                <div onclick="launchGame('kira-bersama')" class="game-card relative cursor-pointer bg-sky-100 hover:bg-sky-200 rounded-2xl p-5 shadow-sm flex flex-col justify-between border-2 border-sky-300">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg md:text-xl text-slate-900">Kira Bersama</h3>
+                            <span class="bg-sky-300 text-sky-900 text-xs font-bold px-2.5 py-1 rounded-full">Tahap 2</span>
+                        </div>
+                        <p class="text-sm md:text-base text-slate-600 mb-4">Kira bilangan objek dan pilih jawapan yang betul</p>
+                    </div>
+                    <div class="flex items-center justify-between mt-2 pt-3 border-t border-sky-200">
+                        <span class="text-xs md:text-sm font-bold text-sky-700 flex items-center gap-1"><i class="fa-solid fa-play"></i> Main Sekarang</span>
+                        <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-sky-600 shadow-sm">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game 5 -->
+                <div onclick="launchGame('padan-gambar')" class="game-card relative cursor-pointer bg-sky-100 hover:bg-sky-200 rounded-2xl p-5 shadow-sm flex flex-col justify-between border-2 border-sky-300">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg md:text-xl text-slate-900">Padan Gambar & Perkataan</h3>
+                            <span class="bg-sky-300 text-sky-900 text-xs font-bold px-2.5 py-1 rounded-full">Tahap 2</span>
+                        </div>
+                        <p class="text-sm md:text-base text-slate-600 mb-4">Padankan gambar dengan perkataan yang betul</p>
+                    </div>
+                    <div class="flex items-center justify-between mt-2 pt-3 border-t border-sky-200">
+                        <span class="text-xs md:text-sm font-bold text-sky-700 flex items-center gap-1"><i class="fa-solid fa-play"></i> Main Sekarang</span>
+                        <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-sky-600 shadow-sm">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game 6 -->
+                <div onclick="launchGame('game-6')" class="game-card relative cursor-pointer bg-sky-100 hover:bg-sky-200 rounded-2xl p-5 shadow-sm flex flex-col justify-between border-2 border-sky-300">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg md:text-xl text-slate-900">Game 6</h3>
+                            <span class="bg-sky-300 text-sky-900 text-xs font-bold px-2.5 py-1 rounded-full">Tahap 3</span>
+                        </div>
+                        <p class="text-sm md:text-base text-slate-600 mb-4">Isikan Tempat Kosong dengan huruf yang betul</p>
+                    </div>
+                    <div class="flex items-center justify-between mt-2 pt-3 border-t border-sky-200">
+                        <span class="text-xs md:text-sm font-bold text-sky-700 flex items-center gap-1"><i class="fa-solid fa-play"></i> Main Sekarang</span>
+                        <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-sky-600 shadow-sm">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game 7 -->
+                <div onclick="launchGame('game-7')" class="game-card relative cursor-pointer bg-sky-100 hover:bg-sky-200 rounded-2xl p-5 shadow-sm flex flex-col justify-between md:col-span-2 lg:col-span-1 border-2 border-sky-300">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg md:text-xl text-slate-900">Game 7</h3>
+                            <span class="bg-sky-300 text-sky-900 text-xs font-bold px-2.5 py-1 rounded-full">Tahap 4</span>
+                        </div>
+                        <p class="text-sm md:text-base text-slate-600 mb-4">Isikan Tempat Kosong dengan huruf yang betul</p>
+                    </div>
+                    <div class="flex items-center justify-between mt-2 pt-3 border-t border-sky-200">
+                        <span class="text-xs md:text-sm font-bold text-sky-700 flex items-center gap-1"><i class="fa-solid fa-play"></i> Main Sekarang</span>
+                        <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-sky-600 shadow-sm">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- Game Mode Select Modal (unchanged UI) -->
+        <div id="game-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+            <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl border-4 border-yellow-300 relative">
+
+                <!-- Original Icon Header -->
+                <div class="w-16 h-16 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-3 shadow-inner">
+                    🎮
+                </div>
+
+                <h3 id="modal-title" class="text-xl font-bold text-slate-800 mb-1">Permainan Bermula!</h3>
+                <p id="modal-desc" class="text-slate-600 text-sm mb-4">Pilih mod permainan awak:</p>
+
+                <!-- 3 Game Mode Buttons (Glossy Green style) -->
+                <div class="space-y-2.5 mb-5">
+                    <button onclick="startGameMode(30)" class="w-full glossy-btn bg-lime-500 hover:bg-lime-600 text-white font-bold py-3 px-4 rounded-xl shadow-[0_4px_0_#4d7c0f] active:shadow-[0_1px_0_#4d7c0f] active:translate-y-1 transition text-base flex items-center justify-center">
+                        30 Saat
+                    </button>
+                    <button onclick="startGameMode(60)" class="w-full glossy-btn bg-lime-500 hover:bg-lime-600 text-white font-bold py-3 px-4 rounded-xl shadow-[0_4px_0_#4d7c0f] active:shadow-[0_1px_0_#4d7c0f] active:translate-y-1 transition text-base flex items-center justify-center">
+                        60 Saat
+                    </button>
+                    <button onclick="startGameMode(0)" class="w-full glossy-btn bg-lime-500 hover:bg-lime-600 text-white font-bold py-3 px-4 rounded-xl shadow-[0_4px_0_#4d7c0f] active:shadow-[0_1px_0_#4d7c0f] active:translate-y-1 transition text-base flex items-center justify-center">
+                        Tiada Had
+                    </button>
+                </div>
+
+                <!-- Close / Cancel Button -->
+                <div>
+                    <button onclick="closeModal()" class="w-full bg-slate-200 hover:bg-slate-300 text-slate-700 py-2.5 rounded-xl font-bold transition text-sm">Tutup</button>
+                </div>
+
+            </div>
+        </div>
+
+        <footer class="text-center mt-12 text-sm text-slate-400 font-bold">
+            <p>© 2026 MantapKids. Dibina khas untuk anak-anak cerdik!</p>
+        </footer>
+    </div>
+
+    <!-- Shared modules -->
+    <script src="shared/storage.js"></script>
+    <script src="shared/effects.js"></script>
+
+    <script>
+        // Registry of games: add a new line here whenever a new game is built.
+        // No url yet = "coming soon" placeholder card.
+        const GAMES = {
+            'isi-tempat-kosong': { title: 'Isi Tempat Kosong Ya Kids', url: 'games/fill-blank/index.html' },
+            'match-huruf': { title: 'Padan Huruf Besar & Kecil', url: 'games/match-huruf/index.html' },
+            'susun-suku-kata': { title: 'Susun Suku Kata', url: 'games/susun-suku-kata/index.html' },
+            'kira-bersama': { title: 'Kira Bersama', url: 'games/kira-bersama/index.html' },
+            'padan-gambar': { title: 'Padan Gambar & Perkataan', url: 'games/padan-gambar/index.html' },
+            'game-6': { title: 'Game 6', url: null },
+            'game-7': { title: 'Game 7', url: null }
+        };
+
+        let selectedGameId = '';
+
+        window.addEventListener('DOMContentLoaded', () => {
+            if (!Profiles.hasAny()) {
+                window.location.href = 'profiles.html';
+                return;
+            }
+            const active = Profiles.getActive();
+            if (!active) {
+                window.location.href = 'profiles.html';
+                return;
+            }
+            document.getElementById('player-name').innerText = active.name;
+            document.getElementById('profile-avatar').innerText = active.avatar;
+        });
+
+        function launchGame(gameId) {
+            selectedGameId = gameId;
+            document.getElementById('modal-title').innerText = GAMES[gameId].title;
+            const modal = document.getElementById('game-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('game-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+
+        function startGameMode(mode) {
+            const game = GAMES[selectedGameId];
+            closeModal();
+
+            if (game.url) {
+                // Pass the chosen mode along so the game auto-starts on load
+                sessionStorage.setItem('mk_pending_mode', mode);
+                window.location.href = game.url;
+            } else {
+                Effects.info(`🚧 ${game.title} akan datang tidak lama lagi!`);
+            }
+        }
+    </script>
+</body>
+</html>

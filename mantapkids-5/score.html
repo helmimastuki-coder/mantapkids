@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Papan Skor - MantapKids</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Short+Stack&family=Sniglet:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="shared/shared.css">
+</head>
+<body class="text-slate-800 antialiased selection:bg-yellow-300 selection:text-yellow-900">
+
+    <div class="max-w-md md:max-w-3xl lg:max-w-5xl mx-auto px-4 py-6 md:py-10">
+
+        <header class="flex flex-col items-center mb-8">
+            <div class="w-28 h-28 md:w-36 md:h-36 mb-4 mascot-float flex items-center justify-center bg-amber-100 rounded-full shadow-lg border-4 border-amber-300 overflow-hidden text-5xl">
+                🏆
+            </div>
+
+            <div class="w-full bg-white rounded-2xl p-4 md:p-6 shadow-md border-2 border-slate-300 flex items-center gap-4">
+                <div id="profile-avatar" class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-yellow-200 flex items-center justify-center text-2xl md:text-3xl shadow-inner text-amber-600 font-bold">
+                    😊
+                </div>
+                <div>
+                    <p class="text-xs md:text-sm text-slate-400 font-bold uppercase tracking-wider">Papan Skor</p>
+                    <h1 class="text-xl md:text-2xl font-bold text-slate-800" id="player-name">Player One</h1>
+                </div>
+                <div class="ml-auto bg-amber-100 px-4 py-2 rounded-xl text-amber-900 font-bold text-sm md:text-base flex items-center gap-2">
+                    <i class="fa-solid fa-star text-amber-500"></i> <span id="total-stars">0</span>
+                </div>
+            </div>
+
+            <!-- Profile switcher - lets a parent check any kid's progress, not just the active one -->
+            <div id="profile-switcher" class="flex gap-2 mt-4 flex-wrap justify-center"></div>
+        </header>
+
+        <main>
+            <div id="score-list" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Score cards injected here -->
+            </div>
+
+            <div id="empty-state" class="hidden text-center bg-white rounded-2xl p-8 shadow-sm border-2 border-slate-200 mt-4">
+                <div class="text-5xl mb-3">🎮</div>
+                <p class="text-slate-500 font-bold">Belum ada permainan dimainkan lagi. Jom main dahulu!</p>
+            </div>
+        </main>
+
+        <div class="text-center mt-10">
+            <a href="dashboard.html" class="inline-flex items-center gap-2 bg-sky-500 hover:bg-sky-600 text-white px-6 py-3 rounded-2xl font-bold shadow-lg transition">
+                <i class="fa-solid fa-arrow-left"></i> Kembali ke Menu Utama
+            </a>
+        </div>
+
+        <footer class="text-center mt-12 text-sm text-slate-400 font-bold">
+            <p>© 2026 MantapKids. Dibina khas untuk anak-anak cerdik!</p>
+        </footer>
+    </div>
+
+    <!-- Shared modules -->
+    <script src="shared/storage.js"></script>
+    <script src="shared/effects.js"></script>
+
+    <script>
+        // Display names for known games. Add an entry whenever a new game ships.
+        const GAME_LABELS = {
+            'isi-tempat-kosong': { title: 'Isi Tempat Kosong Ya Kids', icon: '🔤' },
+            'match-huruf': { title: 'Padan Huruf Besar & Kecil', icon: '🔡' },
+            'susun-suku-kata': { title: 'Susun Suku Kata', icon: '🧩' },
+            'kira-bersama': { title: 'Kira Bersama', icon: '🔢' },
+            'padan-gambar': { title: 'Padan Gambar & Perkataan', icon: '🖼️' }
+        };
+
+        let viewingProfileId = null;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            if (!Profiles.hasAny()) {
+                window.location.href = 'profiles.html';
+                return;
+            }
+            viewingProfileId = Profiles.getActiveId();
+            renderProfileSwitcher();
+            renderActiveHeader();
+            renderScores();
+        });
+
+        function renderProfileSwitcher() {
+            const profiles = Profiles.list();
+            const switcher = document.getElementById('profile-switcher');
+
+            if (profiles.length <= 1) {
+                switcher.innerHTML = '';
+                return;
+            }
+
+            switcher.innerHTML = profiles.map(p => `
+                <button onclick="viewProfile('${p.id}')"
+                    class="px-4 py-2 rounded-xl text-sm font-bold transition flex items-center gap-2
+                        ${p.id === viewingProfileId ? 'bg-sky-500 text-white' : 'bg-white text-slate-600 border-2 border-slate-200 hover:border-sky-300'}">
+                    <span>${p.avatar}</span> ${p.name}
+                </button>
+            `).join('');
+        }
+
+        function viewProfile(id) {
+            viewingProfileId = id;
+            renderProfileSwitcher();
+            renderActiveHeader();
+            renderScores();
+        }
+
+        function renderActiveHeader() {
+            const profile = Profiles.list().find(p => p.id === viewingProfileId);
+            if (!profile) return;
+            document.getElementById('player-name').innerText = profile.name;
+            document.getElementById('profile-avatar').innerText = profile.avatar;
+            document.getElementById('total-stars').innerText = Score.getTotalStars(viewingProfileId);
+        }
+
+        function renderScores() {
+            const all = Score.getAll(viewingProfileId);
+            const gameIds = Object.keys(all);
+            const listEl = document.getElementById('score-list');
+            const emptyEl = document.getElementById('empty-state');
+
+            if (gameIds.length === 0) {
+                listEl.innerHTML = '';
+                emptyEl.classList.remove('hidden');
+                return;
+            }
+
+            emptyEl.classList.add('hidden');
+            listEl.innerHTML = gameIds.map(id => {
+                const stats = all[id];
+                const label = GAME_LABELS[id] || { title: id, icon: '🎮' };
+                return `
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border-2 border-sky-200">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-12 h-12 rounded-full bg-sky-100 flex items-center justify-center text-2xl">${label.icon}</div>
+                            <div>
+                                <h3 class="font-bold text-lg text-slate-900">${label.title}</h3>
+                                <p class="text-xs text-slate-400 font-bold">Dimainkan ${stats.timesPlayed} kali</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between bg-amber-50 rounded-xl px-4 py-3 border-2 border-amber-200">
+                            <span class="text-sm font-bold text-amber-800">Skor Terbaik</span>
+                            <span class="text-2xl font-bold text-amber-600">${stats.best}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+    </script>
+</body>
+</html>
